@@ -1,0 +1,30 @@
+{
+  "name": "tasks-backend-practice",
+  "version": "1.0.0",
+  "description": "In this repo I am willing to build backend for tasks application using Node.js, SQL database (Postgres) and ORM (sequelize package)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fha96/tasks-backend-practice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fha96/tasks-backend-practice/issues"
+  },
+  "homepage": "https://github.com/fha96/tasks-backend-practice#readme",
+  "dependencies": {
+    "base-64": "^1.0.0",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "pg": "^8.8.0",
+    "sequelize": "^6.23.1"
+  }
+}

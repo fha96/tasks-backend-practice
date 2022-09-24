@@ -13,5 +13,4 @@ module.exports = (userModel) => (req, res, next) => {
     } catch (error) {
         next('Invalid Login');
     }
-
 }

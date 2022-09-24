@@ -1,6 +1,7 @@
 'use strict';
 
 
+
 class Collections {
     constructor(model) {
         this.model = model;
@@ -42,6 +43,26 @@ class Collections {
         console.error(`Error while updating ${error.message}`);
             
         }
+    }
+    async readTasksWithStatus(Model) {
+        try {
+            let tasks = await this.model.findAll({include:[Model]});
+            return tasks; 
+        } catch (error) {
+            console.error(`Error while read with status  ${error.message}`);
+
+        }
+
+    }
+
+    async createAndReadAllStatus(Model, obj, id){
+        try {
+            await this.model.create(obj);
+            return this.model.findAll({include:[Model], where:{taskID:id}});
+        } catch (error) {
+            console.error(`Error while read and create status  ${error.message}`);
+        }
+
     }
 }
 

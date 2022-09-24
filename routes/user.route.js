@@ -17,11 +17,8 @@ router.get('/user',getAllUsers);
 //add user (signup)
 router.post('/signup',handleSignup);
 
-
 // signin 
 router.post('/signin',basicAuth(Models.userModel),handleSignin);
-
-
 
 
 async function handleSignin(req, res) {

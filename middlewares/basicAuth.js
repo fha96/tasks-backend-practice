@@ -9,7 +9,11 @@ module.exports = (userModel) => (req, res, next) => {
     let encoded = headers.pop();
     let decoded = base64.decode(encoded).split(':');
     const [userName, password] = decoded;
-    userModel.authenticateBasic(userName,password).then(() => next()).catch(rejected => next(rejected));
+    userModel.authenticateBasic(userName,password).then((resolve) => {
+        req.user = resolve;
+        next();
+    })
+    .catch(rejected => next(rejected));
     } catch (error) {
         next('Invalid Login');
     }

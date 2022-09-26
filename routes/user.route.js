@@ -6,13 +6,14 @@ const {User, Models} = require('../models/index');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const basicAuth = require('../middlewares/basicAuth');
+const bearerAuth = require('../middlewares/bearerAuth');
 
 
 
 
 
 // get all users route
-router.get('/user',getAllUsers);
+router.get('/user',bearerAuth(Models.userModel),getAllUsers);
 
 //add user (signup)
 router.post('/signup',handleSignup);
@@ -22,7 +23,7 @@ router.post('/signin',basicAuth(Models.userModel),handleSignin);
 
 
 async function handleSignin(req, res) {
-    res.send('hello');
+    res.status(200).send(req.user);
 }
 
 async function handleSignup(req, res) {
@@ -43,6 +44,7 @@ async function handleSignup(req, res) {
 }
 
 async function getAllUsers(req, res) {
+    console.log('from handler');
     let allUsers = await User.read();
     res.status(200).send(allUsers);
 }

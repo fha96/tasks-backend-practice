@@ -1,7 +1,9 @@
 'use strict';
 
 const bcrypt = require('bcrypt');
-
+const e = require('express');
+const jwt = require('jsonwebtoken');
+const { use } = require('../routes/status.route');
 
 const userModel = (suquelize, DataTypes) => {
 
@@ -21,6 +23,9 @@ const userModel = (suquelize, DataTypes) => {
         password:{
             type:DataTypes.STRING,
             allowNull:false
+        },
+        token: {
+            type: DataTypes.VIRTUAL
         }
     });
 
@@ -31,6 +36,8 @@ const userModel = (suquelize, DataTypes) => {
                 let validate = await bcrypt.compare(password, user.password);
                 console.log(validate);
                 if(validate) {
+                    let token = jwt.sign({userName:userName},process.env.SECRET_KEY);
+                    user.token = token;
                     return user;
                 } else {
                     throw new Error();
@@ -39,9 +46,11 @@ const userModel = (suquelize, DataTypes) => {
                 throw new Error();
             }
         } catch(error) {
-            throw new Error('Invalid Login');
+            return error.message;
         }
     }
+
+
 
 
     return User;

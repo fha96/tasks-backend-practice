@@ -12,6 +12,7 @@ router.get('/status', getAll);
 
 router.post('/status/:taskID/:userID', addStatus);
 
+router.delete('/status/:id', handleDelete);
 
 
 async function addStatus(req, res) {
@@ -26,7 +27,14 @@ async function addStatus(req, res) {
     res.status(201).send(status);
 }
 
+async function handleDelete (req, res) {
+    let {id} = req.params;
+   
+        await Status.delete(id)
+        .then(resolove =>res.status(200).send('Status has been deleted successfully') )
+        .catch(rejected => res.status(500).send(rejected));    
 
+}
 
 async function getAll(req, res) {
     let status = await Status.read();

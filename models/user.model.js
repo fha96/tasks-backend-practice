@@ -26,6 +26,19 @@ const userModel = (suquelize, DataTypes) => {
         },
         token: {
             type: DataTypes.VIRTUAL
+        },
+        role: {
+            type: DataTypes.ENUM('admin', 'user')
+        },
+        capabilities: {
+            type: DataTypes.VIRTUAL,
+            get : function(){
+                const acl = {
+                    user: ['read', 'create'],
+                    admin: ['read', 'update', 'delete', 'create']
+                }
+                return acl[this.role];
+            }
         }
     });
 
@@ -50,7 +63,14 @@ const userModel = (suquelize, DataTypes) => {
         }
     }
 
-
+    User.validateToken = async function(token) {
+        let parsedToken = jwt.verify(token, process.env.SECRET_KEY);
+        await this.findOne({where: { userName: parsedToken.userName}}).then(resolve => {
+            return resolve;
+        }).catch(rejected => {
+            return rejected;
+        });
+    }
 
 
     return User;

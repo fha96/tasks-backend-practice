@@ -10,8 +10,8 @@ const taskRouter = require('./routes/task.route');
 const statusRouter = require('./routes/status.route');
 const app = express();
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 app.use(userRoute);
 app.use(taskRouter);
 app.use(statusRouter);

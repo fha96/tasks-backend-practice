@@ -33,6 +33,7 @@ async function handleSignup(req, res) {
         obj.password = await bcrypt.hash(obj.password, 6);
         let user = await User.add(obj);
         if(user){
+            console.log('Success');
             res.status(200).send('User has been created successfully');
         } else{
             throw new Error();

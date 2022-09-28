@@ -20,11 +20,17 @@ async function addStatus(req, res) {
     let data = req.body;
     data.taskID = taskID;
     data.userID = userID;
-    let user = await Models.userModel.findOne({where:{id:userID}});
-    data.name = user.userName;
-    console.log(data);
-    let status = await Status.createAndReadAllStatus(Models.taskModel, data, taskID);
-    res.status(201).send(status);
+    console.log('before naming >>>>>>>>>>>>>>>>>>>',data);
+    try {
+        
+        let user = await Models.userModel.findOne({where:{id:userID}});
+        data.name = user.userName;
+        console.log('after naming >>>>>>>>>>>>>>>>>>>',data);
+        let status = await Status.createAndReadAllStatus(Models.taskModel, data, taskID);
+        res.status(201).send(status);
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
 }
 
 async function handleDelete (req, res) {

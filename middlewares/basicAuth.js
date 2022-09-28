@@ -13,7 +13,7 @@ module.exports = (userModel) => (req, res, next) => {
         req.user = resolve;
         next();
     })
-    .catch(rejected => next(rejected));
+    .catch(rejected => next('Invalid Login'));
     } catch (error) {
         next('Invalid Login');
     }

@@ -1,9 +1,7 @@
 'use strict';
 
 const bcrypt = require('bcrypt');
-const e = require('express');
 const jwt = require('jsonwebtoken');
-const { use } = require('../routes/status.route');
 
 const userModel = (suquelize, DataTypes) => {
 
@@ -59,7 +57,7 @@ const userModel = (suquelize, DataTypes) => {
                 throw new Error();
             }
         } catch(error) {
-            return error.message;
+            throw new Error();
         }
     }
 

@@ -2,19 +2,20 @@
 
 
 const express = require('express');
+const bearerAuth = require('../middlewares/bearerAuth');
 const {Task, Models} = require('../models/index');
 const router = express.Router();
 
- router.get('/task', getAll);
+ router.get('/task', bearerAuth(Models.userModel), getAll);
 
- router.post('/task', addTask);
+ router.post('/task',bearerAuth(Models.userModel) ,addTask);
 
 
 
  async function addTask(req, res) {
     let data = req.body;
-    let task = await Task.add(data);
-    res.status(201).send(task);
+   await Task.add(data);
+    res.status(201).send('task has been added succesfully');
  }
 
 

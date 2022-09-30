@@ -63,11 +63,16 @@ const userModel = (suquelize, DataTypes) => {
 
     User.validateToken = async function(token) {
         let parsedToken = jwt.verify(token, process.env.SECRET_KEY);
-        await this.findOne({where: { userName: parsedToken.userName}}).then(resolve => {
-            return resolve;
-        }).catch(rejected => {
-            return rejected;
-        });
+        try {
+            let user = await this.findOne({where: { userName: parsedToken.userName}});
+            if(user){
+                return user;
+            }else {
+                throw new Error();
+            }
+        } catch (error) {
+            throw new Error();  
+        }
     }
 
 

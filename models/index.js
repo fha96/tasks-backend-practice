@@ -12,7 +12,12 @@ let DATABASE_URL = process.env.DATABASE_URL || 'postgres://fahadzidan1@localhost
 
 
 let sequelizeOption = {
-
+    dialectOptions : {
+        ssl : {
+            require : true,
+            rejectUnauthorized: false
+        }
+    }
 
 
 };
